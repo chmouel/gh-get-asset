@@ -65,5 +65,5 @@ assets=$(gh_get_release ${1} ${2})
 }
 
 for asset in ${assets}; do
-	echo curl "${output[@]}" "${curlargs[@]}" $asset
+	curl "${output[@]}" "${curlargs[@]}" $asset
 done
