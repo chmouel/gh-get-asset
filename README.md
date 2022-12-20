@@ -1,6 +1,6 @@
 # gh-get-asset
 
-Fetch an asset from a release
+Fetch an asset (ie: binary) from a GitHub release
 
 ## Installation
 
