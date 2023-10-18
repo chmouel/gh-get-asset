@@ -9,27 +9,8 @@ curlargs=(-L)
 release=
 output=(-O)
 
-while getopts "r:so:" o; do
-	case "${o}" in
-	r)
-		release=${OPTARG}
-		;;
-	s)
-		curlargs+=(-s)
-		;;
-	o)
-		output=(-o "${OPTARG}")
-		;;
-	*)
-		echo "Invalid option"
-		exit 1
-		;;
-	esac
-done
-shift $((OPTIND - 1))
-
-[[ -z ${1-""} || -z ${2:-""} ]] && {
-    cat <<EOF
+print_help() {
+	cat <<EOF
 USAGE: gh get-asset owner/repo substring_in_assset
 
  -o OUTPUT_FILE to output to that file instead of the asset name in curdir
@@ -45,6 +26,34 @@ Author:
 Homepage:
     https://github.com/chmouel/gh-get-asset
 EOF
+}
+
+while getopts "r:so:" o; do
+	case "${o}" in
+	r)
+		release=${OPTARG}
+		;;
+	s)
+		curlargs+=(-s)
+		;;
+	o)
+		output=(-o "${OPTARG}")
+		;;
+	h)
+		print_help
+		exit 0
+		;;
+	*)
+		echo "Invalid option"
+		print_help
+		exit 1
+		;;
+	esac
+done
+shift $((OPTIND - 1))
+
+[[ -z ${1-""} || -z ${2:-""} ]] && {
+	print_help
 	exit 1
 }
 
